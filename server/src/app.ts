@@ -1,13 +1,22 @@
-import express from "express";
+import express, {Application, Request, Response} from "express";
 
-const app = express();
+import authRoutes from "./routes/auth.routes";
 
+import { errorHandler } from "./middleware/errorHandler";
+
+const app: Application = express();
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/api/health", (_req, res) => {
-    res.json({
-        message: "VyuKarya API is running",
-    })
-})
+app.use("/api/auth", authRoutes);
+
+app.get("/api/health", (req: Request, res: Response) => {
+  res.json({
+    message: "VyuKarya API is running",
+  });
+});
+
+app.use(errorHandler)
 
 export default app;

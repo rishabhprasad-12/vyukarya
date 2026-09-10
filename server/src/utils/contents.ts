@@ -1,6 +1,6 @@
-// Workspace Member Schema Model
-export const WORKSPACE_ROLE = ["Owner", "Admin", "Member"] as const;
-export type workspaceMemberRole = typeof WORKSPACE_ROLE[number];
+// User and Workspace Member Schema Model
+export const ROLE = ["Owner", "Admin", "Member"] as const;
+export type role = typeof ROLE[number];
 
 // Project Schema Model
 export const PROJECT_VISIBILITY = ["Public", "Private"] as const;

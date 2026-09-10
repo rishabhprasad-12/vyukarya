@@ -1,9 +1,11 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { ROLE, role } from "../utils/contents";
 
 export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
+  role: role;
   avatar?: string | null;
   createdAt: Date;
   updatedAt: Date;
@@ -31,6 +33,12 @@ const userSchema = new Schema<IUser> (
       type: String,
       required: true,
       minLength: 8,
+    },
+
+    role: {
+      type: String,
+      enum: ROLE,
+      default: "Member"
     },
 
     avatar: {

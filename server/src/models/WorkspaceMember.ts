@@ -1,10 +1,10 @@
 import { Schema, model, Document } from "mongoose";
-import { WORKSPACE_ROLE, workspaceMemberRole } from "../utils/contents";
+import { ROLE, role } from "../utils/contents";
 
 export interface IWorkspaceMember extends Document {
   workspaceId: Schema.Types.ObjectId;
   userId: Schema.Types.ObjectId;
-  role: workspaceMemberRole;
+  role: role;
   joinedAt: Date;
   createdAt: Date;
 }
@@ -23,7 +23,7 @@ const workspaceMemberSchema = new Schema<IWorkspaceMember>(
     },
     role: {
       type: String,
-      enum: WORKSPACE_ROLE,
+      enum: ROLE,
       required: true,
     },
   },
