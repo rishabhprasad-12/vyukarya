@@ -10,19 +10,15 @@ export class ApiError extends Error {
     errors: any[] = [],
     stack: string = "",
   ) {
-    (super(message),
-      (this.statusCode = statusCode),
-      (this.success = false),
-      (this.errors = errors));
+    super(message);
+    this.statusCode = statusCode;
+    this.success = false;
+    this.errors = errors;
 
     if (stack) {
       this.stack = stack;
     } else {
-      Error.captureStackTrace(this.targetInstance(), this.constructor);
+      Error.captureStackTrace(this.constructor);
     }
-  }
-
-  private targetInstance(): object {
-    return this;
   }
 }

@@ -5,7 +5,7 @@ export const generateToken = (userId: string, role: string): string => {
   const secret = process.env.JWT_SECRET;
 
   if (!secret) {
-    throw new ApiError(404, "JWT_SECRET is not define in environment variable");
+    throw new ApiError(500, "JWT_SECRET is not define in environment variable");
   }
 
   return jwt.sign({ id: userId, role }, secret, {

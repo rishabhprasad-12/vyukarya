@@ -21,8 +21,8 @@ export const protect = async (
 
     if (!secret) {
       throw new ApiError(
-        404,
-        "JWT secret is not define in environment variable",
+        500,
+        "JWT_SECRET is not defined in environment variable",
       );
     }
 
@@ -42,10 +42,14 @@ export const protect = async (
 
     next();
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Invalid or expired token";
+    if (error instanceof ApiError) {
+      return next(error);
+    }
 
-    console.error("JWT Error: ", message);
-    throw new ApiError(401, message);
+    if (error instanceof jwt.JsonWebTokenError) {
+      return next(new ApiError(401, "Invalid or expired token"))
+    }
+
+    return next(error);
   }
 };
